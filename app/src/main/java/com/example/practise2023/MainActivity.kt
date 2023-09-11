@@ -14,6 +14,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.practise2023.presentation.home.HomeScreen
 import com.example.practise2023.presentation.home.HomeViewModel
+import com.example.practise2023.presentation.navgraph.NavGraph
 import com.example.practise2023.ui.theme.Practise2023Theme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,10 +40,11 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = colorResource(id = R.color.background)
                 ) {
-                    HomeScreen(
-//                        navigateToSearch = {},
-                        navigateToDetails = {}
-                    )
+//                    HomeScreen(
+////                        navigateToSearch = {},
+//                        navigateToDetails = {}
+//                    )
+                    NavGraph()
                 }
             }
         }

@@ -2,6 +2,9 @@ package com.example.practise2023.di
 
 import android.app.Application
 import androidx.room.Room
+import com.example.practise2023.data.local.NewsDao
+import com.example.practise2023.data.local.NewsDatabase
+import com.example.practise2023.data.local.NewsTypeConvertor
 import com.example.practise2023.data.remote.NewsApi
 import com.example.practise2023.util.Constants.BASE_URL
 import dagger.Binds
@@ -30,24 +33,24 @@ object AppModule {
             .create(NewsApi::class.java)
     }
 
-//    @Provides
-//    @Singleton
-//    fun provideNewsDatabase(
-//        application: Application
-//    ): NewsDatabase {
-//        return Room.databaseBuilder(
-//            context = application,
-//            klass = NewsDatabase::class.java,
-//            name = "news_db"
-//        ).addTypeConverter(NewsTypeConvertor())
-//            .fallbackToDestructiveMigration()
-//            .build()
-//    }
-//
-//    @Provides
-//    @Singleton
-//    fun provideNewsDao(
-//        newsDatabase: NewsDatabase
-//    ): NewsDao = newsDatabase.newsDao
+    @Provides
+    @Singleton
+    fun provideNewsDatabase(
+        application: Application
+    ): NewsDatabase {
+        return Room.databaseBuilder(
+            context = application,
+            klass = NewsDatabase::class.java,
+            name = "news_db"
+        ).addTypeConverter(NewsTypeConvertor())
+            .fallbackToDestructiveMigration()
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideNewsDao(
+        newsDatabase: NewsDatabase
+    ): NewsDao = newsDatabase.newsDao
 
 }

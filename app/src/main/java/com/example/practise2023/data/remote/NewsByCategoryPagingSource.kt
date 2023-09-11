@@ -5,7 +5,7 @@ import androidx.paging.PagingState
 import com.example.practise2023.domain.model.Article
 import java.lang.Exception
 
-class GetNewsByCategoryPagingSource(
+class NewsByCategoryPagingSource(
     private val api: NewsApi,
     private val category: String
 ) : PagingSource<Int, Article>() {

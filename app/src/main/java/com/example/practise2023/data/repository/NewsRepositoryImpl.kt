@@ -3,9 +3,10 @@ package com.example.practise2023.data.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.example.practise2023.data.local.NewsDao
 import com.example.practise2023.data.remote.NewsApi
 import com.example.practise2023.data.remote.NewsPagingSource
-import com.example.practise2023.data.remote.GetNewsByCategoryPagingSource
+import com.example.practise2023.data.remote.NewsByCategoryPagingSource
 import com.example.practise2023.domain.model.Article
 import com.example.practise2023.domain.repository.NewsRepository
 import kotlinx.coroutines.flow.Flow
@@ -13,7 +14,7 @@ import javax.inject.Inject
 
 class NewsRepositoryImpl @Inject constructor(
     private val newsApi: NewsApi,
-    //private val newsDao: NewsDao
+    private val newsDao: NewsDao
 ) : NewsRepository {
 
     override fun getNews(sources: List<String>): Flow<PagingData<Article>> {
@@ -29,7 +30,7 @@ class NewsRepositoryImpl @Inject constructor(
         return Pager(
             config = PagingConfig(pageSize = 10),
             pagingSourceFactory = {
-                GetNewsByCategoryPagingSource(
+                NewsByCategoryPagingSource(
                     api = newsApi,
                     category = category
                     //sources = sources.joinToString(separator = ",")
@@ -38,20 +39,20 @@ class NewsRepositoryImpl @Inject constructor(
         ).flow
     }
 
-//    override suspend fun upsertArticle(article: Article) {
-//        newsDao.upsert(article)
-//    }
-//
-//    override suspend fun deleteArticle(article: Article) {
-//        newsDao.delete(article)
-//    }
-//
-//    override fun getArticles(): Flow<List<Article>> {
-//        return newsDao.getArticles()
-//    }
-//
-//    override suspend fun getArticle(url: String): Article? {
-//        return newsDao.getArticle(url = url)
-//    }
+    override suspend fun upsertArticle(article: Article) {
+        newsDao.upsert(article)
+    }
+
+    override suspend fun deleteArticle(article: Article) {
+        newsDao.delete(article)
+    }
+
+    override fun getArticles(): Flow<List<Article>> {
+        return newsDao.getArticles()
+    }
+
+    override suspend fun getArticle(url: String): Article? {
+        return newsDao.getArticle(url = url)
+    }
 }
 
